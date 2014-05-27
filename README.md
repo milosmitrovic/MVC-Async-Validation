@@ -5,7 +5,7 @@ This plugin provides ajax server side validation for ASP.MVC applications. You c
 
 ##How To Use
 
-###Index.cshtml
+###View
 
         @using (Html.BeginForm())
         {
