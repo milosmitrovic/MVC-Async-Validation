@@ -91,7 +91,7 @@ This plugin provides ajax server side validation for ASP.MVC applications. You c
      
 ##Plugin Options
 
-            //When no options are provided for plugin these will be considered as defaults
+            //When no options are provided for plugin, these will be considered as default values
              var async_val = new $.async_validation({
              
                form_selector: 'form',
