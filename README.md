@@ -5,6 +5,15 @@ This plugin provides ajax server side validation for ASP.MVC applications. You c
 
 ##How To Use
 
+###Model
+
+            public class FormModel 
+            {
+                [Required(ErrorMessage = "Text1 Error Message")]
+                public string Text1 { get; set; }
+            }
+
+
 ###View
 
         @using (Html.BeginForm())
@@ -44,11 +53,5 @@ This plugin provides ajax server side validation for ASP.MVC applications. You c
       </script>
       
     
-###Model
 
-            public class FormModel 
-            {
-                [Required(ErrorMessage = "Text1 Error Message")]
-                public string Text1 { get; set; }
-            }
 
