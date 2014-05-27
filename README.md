@@ -1,7 +1,7 @@
 MVC Async Validation
 ====================
 
-This plugin provides ajax server side validation for ASP.MVC applications. You can avoid complex client side validation and instead of that you can perform only server side validation in client side style. Validations are done via ajax calls, so validations still  appears like they are done on client side.
+This plugin provides ajax server side validation for ASP.MVC applications. You can avoid complex client side validation and instead of that you can perform only server side validation in client side style. Validations are done via ajax calls, so validations still  appears like they are done on client side. This plugin also includes special mvc validation attributes introduced in: https://github.com/milosmitrovic/Special-MVC-Validation-Attributes 
 
 ##How To Use
 
@@ -85,6 +85,21 @@ This plugin provides ajax server side validation for ASP.MVC applications. You c
             return this.GetModelErrors<FormModel>(model);
         }
      }
+     
+     
+     
+     
+##Plugin Options
+
+            //When no options are provided for plugin these will be considered as defaults
+             var async_val = new $.async_validation({
+             
+               form_selector: 'form',
+               validation_url: '/Validation',
+               input_validation_trigger : 'change keyup paste blur'
+               
+             });
+     
      
      
      
