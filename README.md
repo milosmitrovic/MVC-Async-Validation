@@ -16,15 +16,17 @@ This plugin provides ajax server side validation for ASP.MVC applications. You c
 
 ###View
 
-        @using (Html.BeginForm())
-        {
-          <div>
+            @model TestWebApplication.Models.FormModel
+            
+            @using (Html.BeginForm())
+            {
+            <div>
               @Html.TextBoxFor(model => model.Text1)
               @Html.ValidationMessageFor(model => model.Text1)
-          </div>
-          
-           <input type="submit" value="Submit"  />
-         }
+            </div>
+            
+            <input type="submit" value="Submit"  />
+            }
          
          
          
