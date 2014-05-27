@@ -16,7 +16,7 @@ This plugin provides ajax server side validation for ASP.MVC applications. You c
 
 ###View
 
-            @model TestWebApplication.Models.FormModel
+            @model ExampleWebApp.Models.FormModel
             
             @using (Html.BeginForm())
             {
@@ -55,5 +55,39 @@ This plugin provides ajax server side validation for ASP.MVC applications. You c
       </script>
       
     
+##Controller
+
+    public class FormController : Controller
+    {
+        //
+        // GET: /Form/
+        [HttpGet]
+        public ActionResult Index()
+        {
+            return View(new FormModel());
+        }
+        
+        [HttpPost]
+        public ActionResult Index(FormModel model)
+        {
+            return View(model);
+        }
+    }
+    
+    
+##Validation Controller
+
+    public class ValidationController : Controller
+    {
+        [HttpPost]
+        public JsonResult Index(FormModel model)
+        {
+            return this.GetModelErrors<FormModel>(model);
+        }
+     }
+     
+     
+     
+
 
 
