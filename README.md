@@ -55,7 +55,7 @@ This plugin provides ajax server side validation for ASP.MVC applications. You c
       </script>
       
     
-##Controller
+###Controller
 
     public class FormController : Controller
     {
@@ -75,7 +75,7 @@ This plugin provides ajax server side validation for ASP.MVC applications. You c
     }
     
     
-##Validation Controller
+###Validation Controller
 
     public class ValidationController : Controller
     {
