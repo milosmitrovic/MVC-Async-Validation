@@ -1,0 +1,96 @@
+﻿@model TestWebApplication.Models.FormModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>FormModel</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Text1, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Text1)
+                @Html.ValidationMessageFor(model => model.Text1)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Text2, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Text2)
+                @Html.ValidationMessageFor(model => model.Text2)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Text3, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Text3)
+                @Html.ValidationMessageFor(model => model.Text3)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Select1, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select name="Select1">
+                    <option value="">Please Select</option>
+                    @foreach (var listItem in Model.Select1Options)
+                    {
+                        <option @(listItem.Value == Model.Select1 ? "selected=selected" : string.Empty) value="@listItem.Value">@listItem.Text</option>
+                    }
+
+                </select>
+                @Html.ValidationMessageFor(model => model.Select1)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+  
+    <script src="~/Scripts/jquery.async.validation.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+
+            var validation_url = '@Url.Action("Index","Validation")';
+
+            var async_val = new $.async_validation({
+
+                validation_url: validation_url,
+                form_selector : 'form'
+            });
+
+            $(async_val).bind('onAsyncValidation', function (event, sender, message) {
+                alert($(sender).attr('name') + ' : ' + message);
+            });
+
+            $(async_val).bind('onFormSubmitValidation', function (event, form, errors) {
+                alert("This form has errors");
+            });
+        })
+
+    </script>
+}
