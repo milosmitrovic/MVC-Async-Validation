@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Mvc async validation by milosmitrovic</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Mvc async validation</h1>
+          <h2>This this plugin allows  fake client side validation</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/milosmitrovic/MVC-Async-Validation/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/milosmitrovic/MVC-Async-Validation/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/milosmitrovic/MVC-Async-Validation" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a name="mvc-async-validation" class="anchor" href="#mvc-async-validation"><span class="octicon octicon-link"></span></a>MVC Async Validation</h1>
+
+<p>This plugin provides ajax server side validation for ASP.MVC applications. You can avoid complex client side validation and instead of that you can perform only server side validation in client side style. Validations are done via ajax calls, so validations still  appears like they are done on client side. This plugin also includes special mvc validation attributes introduced in: <a href="https://github.com/milosmitrovic/Special-MVC-Validation-Attributes">https://github.com/milosmitrovic/Special-MVC-Validation-Attributes</a> </p>
+
+<h2>
+<a name="how-to-use" class="anchor" href="#how-to-use"><span class="octicon octicon-link"></span></a>How To Use</h2>
+
+<h3>
+<a name="model" class="anchor" href="#model"><span class="octicon octicon-link"></span></a>Model</h3>
+
+<pre><code>        public class FormModel 
+        {
+            [Required(ErrorMessage = "Text1 Error Message")]
+            public string Text1 { get; set; }
+        }
+</code></pre>
+
+<h3>
+<a name="view" class="anchor" href="#view"><span class="octicon octicon-link"></span></a>View</h3>
+
+<pre><code>        @model ExampleWebApp.Models.FormModel
+
+        @using (Html.BeginForm())
+        {
+        &lt;div&gt;
+          @Html.TextBoxFor(model =&gt; model.Text1)
+          @Html.ValidationMessageFor(model =&gt; model.Text1)
+        &lt;/div&gt;
+
+        &lt;input type="submit" value="Submit"  /&gt;
+        }
+
+
+
+&lt;script src="~/Scripts/jquery.async.validation.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+
+  $(function () {
+
+       var async_val = new $.async_validation();
+
+        //Event that is fired for every form element that has validation error
+        $(async_val).bind('onAsyncValidation', function (event, sender, message) {
+              alert($(sender).attr('name') + ' : ' + message);
+        });
+
+        //Event that is fired if form has any errors
+        $(async_val).bind('onFormSubmitValidation', function (event, form, errors) {
+            alert("This form has errors");
+        });
+
+        //Event that is fired for each element that needs validated
+         $(async_val).bind('onBeforeAsyncValidation', function (event, sender) {
+
+         });
+
+  &lt;/script&gt;
+</code></pre>
+
+<h3>
+<a name="controller" class="anchor" href="#controller"><span class="octicon octicon-link"></span></a>Controller</h3>
+
+<pre><code>public class FormController : Controller
+{
+    //
+    // GET: /Form/
+    [HttpGet]
+    public ActionResult Index()
+    {
+        return View(new FormModel());
+    }
+
+    [HttpPost]
+    public ActionResult Index(FormModel model)
+    {
+        return View(model);
+    }
+}
+</code></pre>
+
+<h3>
+<a name="validation-controller" class="anchor" href="#validation-controller"><span class="octicon octicon-link"></span></a>Validation Controller</h3>
+
+<pre><code>public class ValidationController : Controller
+{
+    [HttpPost]
+    public JsonResult Index(FormModel model)
+    {
+        return this.GetModelErrors&lt;FormModel&gt;(model);
+    }
+ }
+</code></pre>
+
+<h2>
+<a name="plugin-options" class="anchor" href="#plugin-options"><span class="octicon octicon-link"></span></a>Plugin Options</h2>
+
+<pre><code>        //When no options are provided for plugin, these will be considered as default values
+         var async_val = new $.async_validation({
+
+           form_selector: 'form',
+           validation_url: '/Validation',
+           input_validation_trigger : 'change keyup paste blur'
+
+         });
+</code></pre>
+        </section>
+
+        <footer>
+          Mvc async validation is maintained by <a href="https://github.com/milosmitrovic">milosmitrovic</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
