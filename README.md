@@ -47,7 +47,7 @@ This plugin provides ajax server side validation for ASP.MVC applications. You c
                 alert("This form has errors");
             });
             
-            //Event that is fired for each element that needs validated
+            //Event that is fired for each element that needs to be validated
              $(async_val).bind('onBeforeAsyncValidation', function (event, sender) {
              
              });
